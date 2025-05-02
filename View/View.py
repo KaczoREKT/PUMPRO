@@ -17,11 +17,6 @@ class View(tk.Tk):
         self.create_widgets()
 
     def create_widgets(self):
-        # Śmieszny gif
-        photo = Image.open("../Śmietnik/hebe_360.gif")
-        image = ImageTk.PhotoImage(photo)
-        label = tk.Label(self, image=image)
-        label.pack()
         # Typ włosów
         ttk.Label(self.master, text="Typ włosów:").pack(pady=5)
         ttk.Combobox(
