@@ -2,6 +2,8 @@ from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.model_selection import train_test_split
 import random
 import pandas as pd
+
+from Controller import Controller
 from Model.Model import Model
 from View.View import View
 
@@ -29,7 +31,8 @@ def load_and_split_data():
 
 if __name__ == '__main__':
     model = Model()
-    view = View()
+    controller = Controller()
+    view = View(controller)
     X_train, X_test, y_train, y_test, vectorizer = load_and_split_data()
     model.train(X_train, y_train)
     print(f"Accuracy = {model.get_accuracy(X_test, y_test)}")

@@ -1,44 +1,44 @@
 import tkinter as tk
 from tkinter import messagebox
 
+from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.model_selection import train_test_split
-from View.View import View  # zakładam, że klasę View zapisałeś w osobnym pliku view.py
-from Model.Model import Model  # zakładam, że klasę Model zapisałeś w model.py
 import pandas as pd
 import random
 
+from View.View import View
+from Model.Model import Model
+
 class Controller:
     def __init__(self):
-        # Załaduj model
         self.model = Model()
         self.feature_names = None
 
-        # Przygotuj dane
+        # Załaduj dane i wytrenuj model
         self.X_train, self.X_test, self.y_train, self.y_test = self.load_data()
         self.model.train(self.X_train, self.y_train)
 
-        # Inicjalizuj widok
-        self.view = View()
-        self.view.submit = self.handle_submit  # Przypisz funkcję obsługującą przycisk
+        # Inicjalizuj GUI
+        self.view = View(self)
+        self.view.submit = self.handle_submit
         self.view.mainloop()
 
     def load_data(self):
-        df = pd.read_csv('Data/produkty_hebe.csv', index_col=0)
+        self.df = pd.read_csv('Data/produkty_hebe.csv', index_col=0)
 
-        # Dodajemy sztuczne cechy, jeśli ich nie ma
-        if 'typ_wlosow' not in df.columns:
-            df['typ_wlosow'] = [random.choice(['proste', 'falowane', 'kręcone']) for _ in range(len(df))]
-        if 'typ_skory' not in df.columns:
-            df['typ_skory'] = [random.choice(['normalna', 'sucha', 'tłusta', 'wrażliwa']) for _ in range(len(df))]
-        if 'porowatosc' not in df.columns:
-            df['porowatosc'] = [random.choice(['niska', 'średnia', 'wysoka']) for _ in range(len(df))]
+        # Dodaj brakujące kolumny (jeśli nie istnieją)
+        self.df['typ_wlosow'] = [random.choice(['proste', 'falowane', 'kręcone']) for _ in range(len(self.df))]
+        self.df['typ_skory'] = [random.choice(['normalna', 'sucha', 'tłusta', 'wrażliwa']) for _ in range(len(self.df))]
+        self.df['porowatosc'] = [random.choice(['niska', 'średnia', 'wysoka']) for _ in range(len(self.df))]
 
-        X = df[['typ_wlosow', 'typ_skory', 'porowatosc']]
-        y = df[['skladniki']]
+        # Wektor składników (X)
+        vectorizer = CountVectorizer(tokenizer=lambda x: x.split(','), binary=True)
+        X = vectorizer.fit_transform(self.df['skladniki'])
 
-        X_encoded = pd.get_dummies(X)
-        self.feature_names = X_encoded.columns
-        return train_test_split(X_encoded, y, test_size=0.2, random_state=42)
+        # Etykiety
+        y = self.df[['typ_wlosow', 'typ_skory', 'porowatosc']]
+
+        return train_test_split(X, y, test_size=0.2, random_state=42)
 
     def handle_submit(self):
         # Pobierz dane z GUI
@@ -50,18 +50,33 @@ class Controller:
             messagebox.showerror("Błąd", "Wypełnij wszystkie pola!")
             return
 
-        # Utwórz DataFrame i zakoduj
-        X_input = pd.DataFrame([[typ, skora, porowatosc]], columns=['typ_wlosow', 'typ_skory', 'porowatosc'])
-        X_input_encoded = pd.get_dummies(X_input)
+        # Wczytaj dane szamponów (np. wcześniej wczytany DataFrame przypisany do self.shampoo_df)
+        df = self.df
 
-        # Upewnij się, że kolumny są takie same jak przy treningu
-        X_input_encoded = X_input_encoded.reindex(columns=self.feature_names, fill_value=0)
+        # Filtrowanie po pasujących cechach (jeśli kolumny nie są puste)
+        filtered = df.copy()
+        if 'typ_wlosow' in df.columns and typ:
+            filtered = filtered[filtered['typ_wlosow'].fillna('').str.contains(typ, case=False, na=False)]
+        if 'typ_skory' in df.columns and skora:
+            filtered = filtered[filtered['typ_skory'].fillna('').str.contains(skora, case=False, na=False)]
+        if 'porowatosc' in df.columns and porowatosc:
+            filtered = filtered[filtered['porowatosc'].fillna('').str.contains(porowatosc, case=False, na=False)]
 
-        # Przewiduj
-        prediction = self.model.get_prediction(X_input_encoded)
+        if filtered.empty:
+            messagebox.showinfo("Brak wyników", "Nie znaleziono pasujących szamponów.")
+            return
 
-        # Pokaż wynik
-        messagebox.showinfo("Rekomendowany szampon", f"Zalecane składniki: {prediction[0][0]}")
+        # Wybierz najlepiej dopasowany szampon - np. pierwszy z listy (lub można zastosować scoring)
+        best_match = filtered.iloc[0]
+
+        # Wyodrębnij składniki
+        ingredients = best_match['skladniki'].split(',')
+        top_ingredients = ', '.join([i.strip() for i in ingredients[:3]])
+
+        # Wyświetl wynik
+        messagebox.showinfo("Rekomendacja",
+                            f"Zalecane składniki: {top_ingredients}\n"
+                            f"Najlepiej dopasowany szampon: {best_match['nazwa']}")
 
 if __name__ == '__main__':
     Controller()

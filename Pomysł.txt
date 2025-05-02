@@ -1,4 +1,5 @@
-1. Przygotowanie danych
-Algorytm analizuje które składniki mają znaczenie w składzie szamponu
-2. Predykcja
-Podstawiamy składniki które mają znaczenie
+Wagi dla produktów (pomijając wodę). Pierwsza rzecz w składzie - najwięcej tej rzeczy, ostatnia rzecz w składzie -
+najmniej tej rzeczy. Jak poleca mi produkt z silikonem to niech poleci produkt z wieksza iloscia silikonu w skladzie.
+
+
+

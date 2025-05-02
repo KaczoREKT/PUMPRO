@@ -7,14 +7,17 @@ from AnimatedGIF import AnimatedGIF
 
 
 class View(tk.Tk):
-    def __init__(self):
+    def __init__(self, controller):
         super().__init__()
+        self.controller = controller
+
+        # Tkinter settings
         self.title("Color me clean!")
         self.geometry("420x420")
         self.background = "pink"
         self.configure(bg=self.background)
 
-        # Zmienne tkinter
+        # Tkinter variables
         self.typ_wlosow_var = tk.StringVar()
         self.skora_glowy_var = tk.StringVar()
         self.porowatosc_var = tk.StringVar()
@@ -50,7 +53,7 @@ class View(tk.Tk):
         ).pack()
 
         # Przycisk
-        ttk.Button(self, text="Zatwierdź", command=self.submit).pack(pady=20)
+        ttk.Button(self, text="Zatwierdź", command=self.controller.handle_submit).pack(pady=20)
 
     def submit(self):
         typ = self.typ_wlosow_var.get()
