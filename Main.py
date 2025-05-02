@@ -2,7 +2,6 @@ from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.model_selection import train_test_split
 import random
 import pandas as pd
-
 from Model.Model import Model
 from View.View import View
 

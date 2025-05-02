@@ -1,13 +1,18 @@
 import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
-from PIL import Image, ImageTk
+
+
+from AnimatedGIF import AnimatedGIF
+
 
 class View(tk.Tk):
     def __init__(self):
         super().__init__()
         self.title("Color me clean!")
-        self.geometry("300x250")
+        self.geometry("420x420")
+        self.background = "pink"
+        self.configure(bg=self.background)
 
         # Zmienne tkinter
         self.typ_wlosow_var = tk.StringVar()
@@ -17,32 +22,35 @@ class View(tk.Tk):
         self.create_widgets()
 
     def create_widgets(self):
+        # GIF
+        gif = AnimatedGIF(self, 'hebe_360.gif', bg=self.background)
+        gif.pack()
         # Typ włosów
-        ttk.Label(self.master, text="Typ włosów:").pack(pady=5)
+        ttk.Label(self, text="Typ włosów:", background=self.background).pack(pady=5)
         ttk.Combobox(
-            self.master,
+            self,
             textvariable=self.typ_wlosow_var,
             values=["proste", "falowane", "kręcone"]
         ).pack()
 
         # Skóra głowy
-        ttk.Label(self.master, text="Skóra głowy:").pack(pady=5)
+        ttk.Label(self, text="Skóra głowy:", background=self.background).pack(pady=5)
         ttk.Combobox(
-            self.master,
+            self,
             textvariable=self.skora_glowy_var,
             values=["normalna", "sucha", "tłusta", "wrażliwa"]
         ).pack()
 
         # Porowatość
-        ttk.Label(self.master, text="Porowatość włosów:").pack(pady=5)
+        ttk.Label(self, text="Porowatość włosów:", background=self.background).pack(pady=5)
         ttk.Combobox(
-            self.master,
+            self,
             textvariable=self.porowatosc_var,
             values=["niska", "średnia", "wysoka"]
         ).pack()
 
         # Przycisk
-        ttk.Button(self.master, text="Zatwierdź", command=self.submit).pack(pady=20)
+        ttk.Button(self, text="Zatwierdź", command=self.submit).pack(pady=20)
 
     def submit(self):
         typ = self.typ_wlosow_var.get()
