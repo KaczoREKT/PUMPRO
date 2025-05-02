@@ -1,0 +1,4 @@
+1. Przygotowanie danych
+Algorytm analizuje które składniki mają znaczenie w składzie szamponu
+2. Predykcja
+Podstawiamy składniki które mają znaczenie
