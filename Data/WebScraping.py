@@ -15,7 +15,7 @@ def main():
         writer = csv.writer(file)
         writer.writerow(['id', 'nazwa', 'cena', 'skladniki', 'url'])
 
-        while page < 6:
+        while page < 30:
             url = f'{base_url}?start={page * 24}'
             response = requests.get(url, headers=headers)
 
@@ -72,7 +72,7 @@ def main():
                 prod_num += 1
 
             page += 1
-            sleep(1 / randint(1, 3))
+            sleep(0.3 / randint(1, 30))
 
 if __name__ == '__main__':
     main()
