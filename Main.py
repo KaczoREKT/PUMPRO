@@ -6,11 +6,11 @@ import pandas as pd
 from Controller import Controller
 from Model.Model import Model
 from View.View import View
-
+from utils import resource_path
 
 def load_and_split_data():
     # Wczytaj dane
-    df = pd.read_csv('Data/produkty_hebe.csv', header=0, index_col=0)
+    df = pd.read_csv(resource_path('Data/produkty_hebe.csv'), header=0, index_col=0)
 
     # Losowe dane dla typu skóry, włosów i ich porowatości.
     df['typ_wlosow'] = [random.choice(['kręcone', 'proste']) for _ in range(len(df))]

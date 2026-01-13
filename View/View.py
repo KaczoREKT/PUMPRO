@@ -4,7 +4,7 @@ from tkinter import messagebox
 
 
 from AnimatedGIF import AnimatedGIF
-
+from utils import resource_path
 
 class View(tk.Tk):
     def __init__(self, controller):
@@ -26,7 +26,7 @@ class View(tk.Tk):
 
     def create_widgets(self):
         # GIF
-        gif = AnimatedGIF(self, 'hebe_360.gif', bg=self.background)
+        gif = AnimatedGIF(self, resource_path('hebe_360.gif'), bg=self.background)
         gif.pack()
         # Typ włosów
         ttk.Label(self, text="Typ włosów:", background=self.background).pack(pady=5)

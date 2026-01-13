@@ -6,6 +6,7 @@ from sklearn.model_selection import train_test_split
 import pandas as pd
 import random
 
+from utils import resource_path
 from View.View import View
 from Model.Model import Model
 
@@ -24,7 +25,7 @@ class Controller:
         self.view.mainloop()
 
     def load_data(self):
-        self.df = pd.read_csv('Data/produkty_hebe.csv', index_col=0)
+        self.df = pd.read_csv(resource_path('Data/produkty_hebe.csv'), index_col=0)
 
         # Dodaj brakujące kolumny (jeśli nie istnieją)
         self.df['typ_wlosow'] = [random.choice(['proste', 'falowane', 'kręcone']) for _ in range(len(self.df))]
