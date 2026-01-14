@@ -7,8 +7,9 @@ from sklearn.feature_extraction.text import CountVectorizer
 class Data:
     def __init__(self):
         self.df = pd.read_csv(resource_path('Data/produkty_hebe.csv'), index_col=0)
+        self.preprocess()
     
-    def load_data(self):
+    def preprocess(self):
         self.df['typ_wlosow'] = [random.choice(['proste', 'falowane', 'kręcone']) for _ in range(len(self.df))]
         self.df['typ_skory'] = [random.choice(['normalna', 'sucha', 'tłusta', 'wrażliwa']) for _ in range(len(self.df))]
         self.df['porowatosc'] = [random.choice(['niska', 'średnia', 'wysoka']) for _ in range(len(self.df))]
@@ -19,3 +20,23 @@ class Data:
         y = self.df[['typ_wlosow', 'typ_skory', 'porowatosc']]
 
         return train_test_split(X, y, test_size=0.2, random_state=42)
+    
+    
+    def get_top_ingredients(self, typ, skora, porowatosc, top_n=5):
+        # Filtrowanie po pasujących cechach (jeśli kolumny nie są puste)
+        filtered = self.df.copy()
+        if 'typ_wlosow' in self.df.columns and typ:
+            filtered = filtered[filtered['typ_wlosow'].fillna('').str.contains(typ, case=False, na=False)]
+        if 'typ_skory' in self.df.columns and skora:
+            filtered = filtered[filtered['typ_skory'].fillna('').str.contains(skora, case=False, na=False)]
+        if 'porowatosc' in self.df.columns and porowatosc:
+            filtered = filtered[filtered['porowatosc'].fillna('').str.contains(porowatosc, case=False, na=False)]
+
+        if filtered.empty:
+            return None, None
+
+        best_match = filtered.iloc[0]
+
+        ingredients = best_match['skladniki'].split(',')
+        top_ingredients = ', '.join([i.strip() for i in ingredients[:3]])
+        return top_ingredients, best_match
