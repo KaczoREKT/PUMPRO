@@ -1,0 +1,5 @@
+Wagi dla produktów (pomijając wodę). Pierwsza rzecz w składzie - najwięcej tej rzeczy, ostatnia rzecz w składzie -
+najmniej tej rzeczy. Jak poleca mi produkt z silikonem to niech poleci produkt z wieksza iloscia silikonu w skladzie.
+
+
+

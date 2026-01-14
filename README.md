@@ -1,6 +1,7 @@
 Aplikacja HairShampooPrediction
 Środowisko uruchomienia : Windows 7 - 11 (64 bit)
 Miejsce na Dysku : 70 Mb po rozpakowaniu
+Potrzebne 
 
 Metoda uruchomienia :
 1. Pobierz paczkę HairShampoo.zip 
