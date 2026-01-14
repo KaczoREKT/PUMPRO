@@ -7,3 +7,8 @@ def resource_path(relative_path):
     except Exception:
         base_path = os.path.abspath(".")
     return os.path.join(base_path, relative_path)
+
+def read_file(file_path):
+    path = resource_path(file_path)
+    with open(path, 'r', encoding='utf-8') as file:
+        return file.read()
