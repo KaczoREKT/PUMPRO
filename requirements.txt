@@ -1,2 +1,4 @@
 pillow
 scikit-learn
+pandas
+pyyaml

@@ -1,0 +1,9 @@
+paths:
+  ml_model_path: path/to/ml_model.pkl
+  data_path: path/to/data.csv
+  animated_gif_path: Data/hebe_360.gif
+ml_model:
+  parameters:
+    max_depth: 10
+    criterion: gini
+

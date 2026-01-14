@@ -1,12 +1,15 @@
 import tkinter as tk
 from PIL import Image, ImageTk
-
+from Other.config import config
 
 class AnimatedGIF(tk.Label):
-    def __init__(self, root, gif_path, delay=50, *args, **kwargs):
+    def __init__(self, root, delay=50):
+        super().__init__(root)
+        gif_path = config['paths']['animated_gif_path']
         self.gif = Image.open(gif_path)
         self.frames = []
         self.delay = delay
+        self.config(bg=root.background)
 
         for frame in range(self.gif.n_frames):
             self.gif.seek(frame)
@@ -14,7 +17,7 @@ class AnimatedGIF(tk.Label):
             self.frames.append(frame_image)
 
         self.frame_index = 0
-        super().__init__(root, image=self.frames[self.frame_index], *args, **kwargs)
+        
 
         self.after(self.delay, self.update_frame)
 
