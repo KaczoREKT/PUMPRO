@@ -10,6 +10,7 @@ warnings.filterwarnings("ignore")
 class MLModel:
     def __init__(self):
         self.model = None
+        self.initialize_model()
 
     def train(self, X_train, y_train):
         self.model.fit(X_train, y_train)
@@ -31,10 +32,11 @@ class MLModel:
         except Exception as e:
             return None
     
-    
-    
     def initialize_model(self):
         if config['paths']['ml_model_path']:
             self.load_model()
         else:
             self.create_model()
+            self.train_model()
+            
+    

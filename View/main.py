@@ -27,3 +27,6 @@ class View:
         
     def showerror(self, title: str, message: str) -> None:
         messagebox.showerror(title, message)
+        
+    def showinfo(self, title: str, message: str) -> None:
+        messagebox.showinfo(title, message)
