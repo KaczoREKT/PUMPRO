@@ -2,6 +2,7 @@ import os
 import sys
 
 def resource_path(relative_path):
+    # wczytaj zasób
     try:
         base_path = sys._MEIPASS
     except Exception:

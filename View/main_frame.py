@@ -6,6 +6,7 @@ from tkinter import ttk
 
 class MainFrame(tk.Frame):
     def __init__(self, root):
+        #utwórz main Frame
         super().__init__(root)
         self.background = "pink"
         self.configure(bg=self.background)
@@ -14,9 +15,11 @@ class MainFrame(tk.Frame):
         self.skora_glowy_var = tk.StringVar()
         self.porowatosc_var = tk.StringVar()
 
+        #GIF
         self.hebe_gif = AnimatedGIF(self)
         self.hebe_gif.pack()
-  
+
+        # pole wybrania typów włosów
         self.hair_type_label = ttk.Label(self, text="Typ włosów:", background=self.background)
         self.hair_type_label.pack(pady=5)
         self.hair_type_combobox = ttk.Combobox(
@@ -25,7 +28,7 @@ class MainFrame(tk.Frame):
             values=["proste", "falowane", "kręcone"]
         )
         self.hair_type_combobox.pack()
-
+        # pole wybrania skóry głowy
         self.skin_type_label = ttk.Label(self, text="Skóra głowy:", background=self.background)
         self.skin_type_label.pack(pady=5)
         self.skin_type_combobox = ttk.Combobox(
@@ -34,7 +37,7 @@ class MainFrame(tk.Frame):
             values=["normalna", "sucha", "tłusta", "wrażliwa"]
         )
         self.skin_type_combobox.pack()
-
+        # pole wybrania porowatości włosów
         self.porosity_type_label = ttk.Label(self, text="Porowatość włosów:", background=self.background)
         self.porosity_type_label.pack(pady=5)
         self.porosity_type_combobox = ttk.Combobox(
@@ -44,6 +47,7 @@ class MainFrame(tk.Frame):
         )
         self.porosity_type_combobox.pack()
         
+        #przycisk zatwierdź wybór
         self.submit_button = ttk.Button(self, text="Zatwierdź")
         self.submit_button.pack(pady=20)
 
@@ -51,7 +55,7 @@ class MainFrame(tk.Frame):
         typ = self.typ_wlosow_var.get()
         skora = self.skora_glowy_var.get()
         porowatosc = self.porowatosc_var.get()
-
+        
         messagebox.showinfo(
             "Wybrane cechy",
             f"Typ włosów: {typ}\nSkóra głowy: {skora}\nPorowatość: {porowatosc}"

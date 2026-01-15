@@ -30,12 +30,12 @@ class Controller:
         if not all([typ, skora, porowatosc]):
             self.view.showerror("Błąd", "Wypełnij wszystkie pola!")
             return
-
+        # znajdz najważniejszy składnik w wybranych
         top_ingredients, best_match = self.model.data.get_top_ingredients(typ, skora, porowatosc)
         if top_ingredients is None:
             self.view.showerror("Brak dopasowania", "Nie znaleziono pasujących produktów.")
             return
-
+        # znajdz najlepszy szampon na podstawie top ingridients
         self.view.showinfo("Rekomendacja",
                             f"Zalecane składniki: {top_ingredients}\n"
                             f"Najlepiej dopasowany szampon: {best_match['nazwa']}")

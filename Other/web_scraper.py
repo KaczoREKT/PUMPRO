@@ -7,6 +7,7 @@ from random import randint
 import csv
 
 def main():
+    # Ściąganie danych ze strony hebe do csv
     base_url = 'https://www.hebe.pl/pielegnacja-wlosow-szampony/'
     headers = {'User-Agent': 'Mozilla/5.0'}
     page, prod_num = 0, 0

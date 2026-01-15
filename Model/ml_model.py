@@ -33,6 +33,7 @@ class MLModel:
             return None
     
     def initialize_model(self):
+        # utwórz i wytrenuj model na danych
         if config['paths']['ml_model_path']:
             self.load_model()
         else:
