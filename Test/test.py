@@ -7,7 +7,7 @@ from sklearn.model_selection import train_test_split
 
 def load_and_split_data():
     # Wczytaj dane
-    df = pd.read_csv(resource_path('Data/produkty_hebe.csv'), header=0, index_col=0)
+    df = pd.read_csv(resource_path('Data/produkty_hebe_raw.csv'), header=0, index_col=0)
 
     # Losowe dane dla typu skóry, włosów i ich porowatości.
     df['typ_wlosow'] = [random.choice(['kręcone', 'proste']) for _ in range(len(df))]

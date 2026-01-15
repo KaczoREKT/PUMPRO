@@ -1,6 +1,6 @@
 paths:
   ml_model_path: Data/ml_model.pkl
-  data_path: Data/produkty_hebe.csv
+  data_path: Data/produkty_hebe_raw.csv
   animated_gif_path: Data/hebe_360.gif
 ml_model:
   parameters:

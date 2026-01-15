@@ -22,7 +22,6 @@ class Controller:
         self.view.root.mainloop()
     
     def handle_submit(self):
-        # Pobierz dane z GUI
         typ = self.frame.typ_wlosow_var.get()
         skora = self.frame.skora_glowy_var.get()
         porowatosc = self.frame.porowatosc_var.get()

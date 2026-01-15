@@ -1,0 +1,20 @@
+You will receive a text containing a list of cosmetic ingredients. Clean and format it **exactly** by these rules:
+
+**RULES (apply ALL in order):**
+1. Delete ALL parentheses () and their contents completely
+2. Keep ONLY first name before any comma, slash /, or parenthesis
+3. Remove words: fragrance, parfum, eau, flavor, aroma, essence (entire words only)
+4. Replace semicolons ;, periods ., dashes -, line breaks with commas ,
+5. Trim all extra spaces (single space between words only)
+6. Convert ALL text to lowercase
+7. Return ONLY final comma-separated list on ONE line, NO other text
+
+**EXAMPLE:**
+Input: Aqua (Water, Eau), Sodium Laureth Sulfate, Cocamidopropyl Betaine, Prunus Armeniaca (Apricot) Kernel Oil, Fragrance (Parfum)
+
+**Output:** `aqua, sodium laureth sulfate, cocamidopropyl betaine, prunus armeniaca kernel oil`
+
+**Input text:**
+[PASTE YOUR TEXT HERE]
+
+**Output:**

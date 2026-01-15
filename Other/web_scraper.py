@@ -12,7 +12,7 @@ def main():
     headers = {'User-Agent': 'Mozilla/5.0'}
     page, prod_num = 0, 0
 
-    with open('produkty_hebe.csv', mode='w', newline='', encoding='utf-8') as file:
+    with open('produkty_hebe_raw.csv', mode='w', newline='', encoding='utf-8') as file:
         writer = csv.writer(file)
         writer.writerow(['id', 'nazwa', 'cena', 'skladniki', 'url'])
 

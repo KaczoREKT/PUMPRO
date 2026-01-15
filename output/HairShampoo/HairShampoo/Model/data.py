@@ -6,7 +6,7 @@ from sklearn.feature_extraction.text import CountVectorizer
 
 class Data:
     def __init__(self):
-        self.df = pd.read_csv(resource_path('Data/produkty_hebe.csv'), index_col=0)
+        self.df = pd.read_csv(resource_path('Data/produkty_hebe_raw.csv'), index_col=0)
     
     def load_data(self):
         self.df['typ_wlosow'] = [random.choice(['proste', 'falowane', 'kręcone']) for _ in range(len(self.df))]
