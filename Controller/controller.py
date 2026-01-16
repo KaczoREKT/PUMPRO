@@ -2,6 +2,7 @@ from tkinter import messagebox
 import pandas as pd
 from View.main import View
 from Model.main import Model
+import tkinter as tk
 
 class Controller:
     def __init__(self, model: Model, view: View):
@@ -33,7 +34,7 @@ class Controller:
         user_hair = self.frame.typ_wlosow_var.get()
         user_skin = self.frame.skora_glowy_var.get()
         user_por = self.frame.porowatosc_var.get()
-        ingredients = self.frame.ingredients_entry.get().strip()
+        ingredients = self.frame.ingredients_text.get("1.0", tk.END).strip()
 
         if not ingredients:
             messagebox.showwarning("Błąd", "Wpisz składniki!")

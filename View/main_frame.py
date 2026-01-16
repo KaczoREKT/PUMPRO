@@ -48,9 +48,14 @@ class MainFrame(tk.Frame):
 
         self.ingredients_label = ttk.Label(self, text="Wpisz składniki INCI (przecinki):", background=self.background)
         self.ingredients_label.pack(pady=5)
-        self.ingredients_entry = ttk.Entry(self, width=50, font=("Arial", 10))
-        self.ingredients_entry.pack(pady=5)
-        self.ingredients_entry.insert(0, "aqua, glycerin, panthenol...")
+        self.ingredients_text = tk.Text(
+            self,
+            height=6,
+            width=60,
+            font=("Arial", 11),
+        )
+        self.ingredients_text.pack(pady=5)
+        self.ingredients_text.insert(tk.END, "woda\ntruskawki\n")
 
         #przycisk zatwierdź wybór
         self.submit_button = ttk.Button(self, text="Zatwierdź")

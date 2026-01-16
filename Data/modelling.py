@@ -1,5 +1,7 @@
 import pickle
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.utils import compute_class_weight
+
 
 def train_hair_type_classifier(embeddings_csv="CSV/features.csv",
                                labels_csv="CSV/labels.csv"):
@@ -14,6 +16,9 @@ def train_hair_type_classifier(embeddings_csv="CSV/features.csv",
     with open('Models/hair_type_label_encoder.pkl', 'wb') as f:
         pickle.dump(le, f)
 
+    class_weights = compute_class_weight('balanced', classes=np.unique(y_encoded), y=y_encoded)
+    class_weight_dict = dict(zip(np.unique(y_encoded), class_weights))
+
     X_train, X_test, y_train, y_test = train_test_split(
         X, y_encoded, test_size=0.2, random_state=42, stratify=y_encoded
     )
@@ -23,8 +28,8 @@ def train_hair_type_classifier(embeddings_csv="CSV/features.csv",
         max_depth=15,
         min_samples_split=10,
         min_samples_leaf=5,
-        random_state=42,
-        n_jobs=-1
+        n_jobs=-1,
+        class_weight=class_weight_dict
     )
 
     rf.fit(X_train, y_train)
@@ -80,8 +85,8 @@ def train_skin_type_classifier(embeddings_csv="CSV/features.csv",
         C=1.0,
         max_iter=1000,
         solver='saga',
-        random_state=42,
-        n_jobs=-1
+        n_jobs=-1,
+        class_weight='balanced'
     )
 
     lr.fit(X_train, y_train)
@@ -153,8 +158,8 @@ def train_porosity_classifier(embeddings_csv="CSV/features.csv",
         C=1.5,
         max_iter=1000,
         solver='saga',
-        random_state=42,
-        n_jobs=-1
+        n_jobs=-1,
+        class_weight='balanced'
     )
 
     # Trening
