@@ -1,7 +1,7 @@
 paths:
   ml_model_path: Data/ml_model.pkl
   data_path: Data/produkty_hebe_raw.csv
-  animated_gif_path: Data/hebe_360.gif
+  animated_gif_path: Data/GIF/hebe_360.gif
 ml_model:
   parameters:
     max_depth: 10

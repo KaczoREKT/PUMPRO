@@ -6,22 +6,10 @@ from sentence_transformers import SentenceTransformer
 from Other.utils import resource_path
 import pandas as pd
 from sklearn.model_selection import train_test_split
-from sklearn.feature_extraction.text import CountVectorizer
 
 class Data:
     def __init__(self):
-        self.df = pd.read_csv(resource_path('Data/produkty_hebe_raw.csv'), index_col=0)
-        self.preprocess()
-
-    def clean_ingredients(self, text):
-        if pd.isna(text): return ""
-        # lowercase + usuń extra spacje/przecinki
-        text = re.sub(r'[^\w\s,;/()]+', ' ', text.lower())
-        text = re.sub(r'\s+', ' ', text)
-        # usuń wariacje w nawiasach: "aqua (water, eau)" -> "aqua"
-        text = re.sub(r'\s*\([^)]*\)', '', text)
-        text = re.sub(r'^(ingredients|inci):\s*', '', text)
-        return ', '.join(text.split(',')[:50])  # max 50 składników
+        self.df = pd.read_csv(resource_path('../Data/CSV/produkty_hebe_transformed.csv'), index_col=0)
 
     def preprocess(self):
         # Przygotowanie danych 
@@ -38,7 +26,6 @@ class Data:
 
 
     def get_top_ingredients(self, typ, skora, porowatosc, top_n=5):
-        # Filtrowanie po pasujących cechach (jeśli kolumny nie są puste)
         filtered = self.df.copy()
         if 'typ_wlosow' in self.df.columns and typ:
             filtered = filtered[filtered['typ_wlosow'].fillna('').str.contains(typ, case=False, na=False)]
@@ -57,4 +44,6 @@ class Data:
         return top_ingredients, best_match
 
 if __name__ == '__main__':
-    Data()
+    data = Data()
+    for i in range(len(data.df['skladniki'])):
+        print(data.df.iloc[i]['skladniki'])

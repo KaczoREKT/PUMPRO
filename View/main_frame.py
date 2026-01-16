@@ -25,7 +25,7 @@ class MainFrame(tk.Frame):
         self.hair_type_combobox = ttk.Combobox(
             self,
             textvariable=self.typ_wlosow_var,
-            values=["proste", "falowane", "kręcone"]
+            values=["normalne", "krecone/falowane", "puszace/suche"]
         )
         self.hair_type_combobox.pack()
         # pole wybrania skóry głowy
@@ -34,19 +34,24 @@ class MainFrame(tk.Frame):
         self.skin_type_combobox = ttk.Combobox(
             self,
             textvariable=self.skora_glowy_var,
-            values=["normalna", "sucha", "tłusta", "wrażliwa"]
+            values=["normalna", "tlusta/lupiez", "sucha/wrazliwa"]
         )
         self.skin_type_combobox.pack()
-        # pole wybrania porowatości włosów
         self.porosity_type_label = ttk.Label(self, text="Porowatość włosów:", background=self.background)
         self.porosity_type_label.pack(pady=5)
         self.porosity_type_combobox = ttk.Combobox(
             self,
             textvariable=self.porowatosc_var,
-            values=["niska", "średnia", "wysoka"]
+            values=["niska", "srednia", "wysoka"]
         )
         self.porosity_type_combobox.pack()
-        
+
+        self.ingredients_label = ttk.Label(self, text="Wpisz składniki INCI (przecinki):", background=self.background)
+        self.ingredients_label.pack(pady=5)
+        self.ingredients_entry = ttk.Entry(self, width=50, font=("Arial", 10))
+        self.ingredients_entry.pack(pady=5)
+        self.ingredients_entry.insert(0, "aqua, glycerin, panthenol...")
+
         #przycisk zatwierdź wybór
         self.submit_button = ttk.Button(self, text="Zatwierdź")
         self.submit_button.pack(pady=20)

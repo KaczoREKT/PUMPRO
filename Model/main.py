@@ -14,7 +14,6 @@ warnings.filterwarnings("ignore")
 class Model:
     def __init__(self):
         self.ml_model = MLModel()
-        self.data = Data()
 
 
     
